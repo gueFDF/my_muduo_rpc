@@ -38,6 +38,18 @@ public:
         done->Run();
     }
 };
-int main()
+int main(int argc,char**argv)
 {
+    //框架初始化操作
+    //MprpcApplication::init(argc,,argv);
+
+    //provider是一个rpc网络服务对象，把UserService对象发布到rpc节点上
+    //PpcProvider provider;
+    //provider.NotifyService(new UserService());
+
+    //启动一个rpc服务发布节点
+    //provider.Run();
+
+
+    return 0;
 }
