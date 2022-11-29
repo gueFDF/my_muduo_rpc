@@ -1,10 +1,27 @@
-#include "include/rpcprovider.h"
-#include "include/mprpcappclication.h"
-#include <string>
-#include <functional>
+#include "rpcprovider.h"
+#include "mprpcappclication.h"
+#include <google/protobuf/descriptor.h>
+
+//发布rpc方法的函数接口
 void RpcProvider::NotifyService(google::protobuf::Service *service)
 {
+  ServiceInfo server_info;
+  //获取server的descriptor
+  const google::protobuf::ServiceDescriptor *pservicrDes =
+      service->GetDescriptor();
+  //获取名字
+  std::string server_name = pservicrDes->name();
+  //获取服务对象的方法数量
+  int method_count =pservicrDes->method_count();
 
+  //注册
+  for (int i = 0; i < method_count; ++i) {
+    const google::protobuf::MethodDescriptor *pmethodDes =pservicrDes->method(i);
+    std::string method_name = pmethodDes->name();
+    server_info.m_methodMap.insert({method_name, pmethodDes});
+  }
+  server_info.m_service = service;
+  m_serviceMap.insert({server_name, server_info});
 }
 void RpcProvider::Run()
 {
@@ -40,4 +57,5 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
                             muduo::net::Buffer *buffer,
                             muduo::Timestamp time)
 {
+    
 }
