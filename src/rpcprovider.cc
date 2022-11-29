@@ -139,5 +139,16 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
 
 void RpcProvider::SendRpcresponse(const muduo::net::TcpConnectionPtr&conn,google::protobuf::Message*response)
 {
-  
+  std::string response_str;
+  if(response->SerializeToString(&response_str))
+  {
+    //序列成功
+    conn->send(response_str);
+  }
+  else 
+  {
+    //序列化失败
+    std::cout<<"序列化失败"<<std::endl;
+  }
+   conn->shutdown();//模拟短链接
 }
