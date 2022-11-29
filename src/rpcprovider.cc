@@ -3,7 +3,11 @@
 #include "rpcheader.pb.h"
 #include <cstdint>
 #include <cstring>
+#include <functional>
 #include <google/protobuf/descriptor.h>
+#include <google/protobuf/message.h>
+#include <google/protobuf/service.h>
+#include <google/protobuf/stubs/callback.h>
 #include <muduo/net/Endian.h>
 
 
@@ -82,7 +86,7 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     mprpc::RpcHeader rpcHeader;
     std::string service_name;
     std::string method_name;
-    uint32_t args_size;
+    uint32_t args_size;  //也就是用户蹭的protobuf
     if(rpcHeader.ParseFromString(rpc_header_str))
     {
         //反序列化成功
@@ -99,4 +103,41 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     //获取参数字节流
     std::string args_str=recv_buf.substr(4+header_size,args_size);
 
+
+    //获取server对象和method方法
+    auto it=m_serviceMap.find(service_name);//查询服务
+    if(it==m_serviceMap.end())
+    {
+      //所查询服务不存在
+      std::cout<<"所查询服务不存在"<<std::endl;
+      return;
+    }
+    auto mit=it->second.m_methodMap.find(method_name);
+    if(mit==it->second.m_methodMap.end())
+    {
+      //所查询方法不存在
+      std::cout<<"所查询方法不存在"<<std::endl;
+      return;
+    }
+    google::protobuf::Service*server=it->second.m_service;
+    const google::protobuf::MethodDescriptor*methodDes=mit->second;
+   
+    //生成rpc请求的resquest和相应的response参数
+    google::protobuf::Message* request=server->GetRequestPrototype(methodDes).New();
+    google::protobuf::Message*response=server->GetResponsePrototype(methodDes).New();
+
+
+    //给methodd的closure的回调函数
+    google::protobuf::Closure *done =google::protobuf::NewCallback<RpcProvider,
+                                                                  const muduo::net::TcpConnectionPtr&,
+                                                                  google::protobuf::Message*>
+      (this,&RpcProvider::SendRpcresponse ,conn, response);
+    //在框架调用远端方法    
+    server->CallMethod(methodDes, nullptr,request, response, done);
+}
+
+
+void RpcProvider::SendRpcresponse(const muduo::net::TcpConnectionPtr&conn,google::protobuf::Message*response)
+{
+  
 }
