@@ -2,6 +2,15 @@
 cmake_minimum_required(VERSION 3.16.3)
 project(mprpc)
 
+# 规定g++版本
+SET(CMAKE_C_COMPILER "/usr/bin/clang++")
+
+#SET(CMAKE_CXX_COMPILER "/usr/bin/clang")
+
+#CMAKE_CXX_COMPILE_FEATURES是默认编译选项，下面是在默认编译选项上加-g选项
+set(CMAKE_CXX_COMPILE_FEATURES ${CMAKE_CXX_COMPILE_FEATURES} -g -std=c++14 ) 
+
+
 # 设置可执行文件输出的路径
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 

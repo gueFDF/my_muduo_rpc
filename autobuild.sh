@@ -1,4 +1,3 @@
-#! /bin/zsh
    cd build
    make clean
    cmake ..

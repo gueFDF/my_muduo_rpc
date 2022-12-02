@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/gty/vscode/my_muduo_rpc/build/src",
+  "command": "/usr/bin/c++   -I/home/gty/vscode/my_muduo_rpc/src/include -I/home/gty/vscode/my_muduo_rpc/example    -o CMakeFiles/mprpc.dir/morpcapplication.cc.o -c /home/gty/vscode/my_muduo_rpc/src/morpcapplication.cc",
+  "file": "/home/gty/vscode/my_muduo_rpc/src/morpcapplication.cc"
+},
+{
+  "directory": "/home/gty/vscode/my_muduo_rpc/build/src",
+  "command": "/usr/bin/c++   -I/home/gty/vscode/my_muduo_rpc/src/include -I/home/gty/vscode/my_muduo_rpc/example    -o CMakeFiles/mprpc.dir/mprpcconfig.cc.o -c /home/gty/vscode/my_muduo_rpc/src/mprpcconfig.cc",
+  "file": "/home/gty/vscode/my_muduo_rpc/src/mprpcconfig.cc"
+},
+{
+  "directory": "/home/gty/vscode/my_muduo_rpc/build/src",
+  "command": "/usr/bin/c++   -I/home/gty/vscode/my_muduo_rpc/src/include -I/home/gty/vscode/my_muduo_rpc/example    -o CMakeFiles/mprpc.dir/rpcheader.pb.cc.o -c /home/gty/vscode/my_muduo_rpc/src/rpcheader.pb.cc",
+  "file": "/home/gty/vscode/my_muduo_rpc/src/rpcheader.pb.cc"
+},
+{
+  "directory": "/home/gty/vscode/my_muduo_rpc/build/src",
+  "command": "/usr/bin/c++   -I/home/gty/vscode/my_muduo_rpc/src/include -I/home/gty/vscode/my_muduo_rpc/example    -o CMakeFiles/mprpc.dir/rpcprovider.cc.o -c /home/gty/vscode/my_muduo_rpc/src/rpcprovider.cc",
+  "file": "/home/gty/vscode/my_muduo_rpc/src/rpcprovider.cc"
+},
+{
+  "directory": "/home/gty/vscode/my_muduo_rpc/build/example/callee",
+  "command": "/usr/bin/c++   -I/home/gty/vscode/my_muduo_rpc/src/include -I/home/gty/vscode/my_muduo_rpc/example -I/home/gty/vscode/my_muduo_rpc/.. -I/../../src/include    -o CMakeFiles/provider.dir/userservice.cc.o -c /home/gty/vscode/my_muduo_rpc/example/callee/userservice.cc",
+  "file": "/home/gty/vscode/my_muduo_rpc/example/callee/userservice.cc"
+},
+{
+  "directory": "/home/gty/vscode/my_muduo_rpc/build/example/callee",
+  "command": "/usr/bin/c++   -I/home/gty/vscode/my_muduo_rpc/src/include -I/home/gty/vscode/my_muduo_rpc/example -I/home/gty/vscode/my_muduo_rpc/.. -I/../../src/include    -o CMakeFiles/provider.dir/__/user.pb.cc.o -c /home/gty/vscode/my_muduo_rpc/example/user.pb.cc",
+  "file": "/home/gty/vscode/my_muduo_rpc/example/user.pb.cc"
+}
+]

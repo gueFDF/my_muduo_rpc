@@ -1,5 +1,10 @@
-syntax = "proto3";
-package fixbug;
+syntax = "proto3";  //protobuf版本
+package fixbug;  //类似于C++的命名空间
+
+
+//选项
+option cc_generic_services =true;
+
 
 message Resultcode 
 {
@@ -41,4 +46,11 @@ message  GetFrendlistResponse
 {
     Resultcode result = 1;
     repeated User friends_list=2;  //定义一个列表类型
+}
+
+
+service  UserServiceRpc
+{
+    rpc Login (LoginRequest) returns (LoginResponse);
+    rpc GetFriendlist (GetFriendlistRequest) returns (GetFrendlistResponse);
 }

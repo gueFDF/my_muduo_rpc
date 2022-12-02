@@ -86,14 +86,14 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     mprpc::RpcHeader rpcHeader;
     std::string service_name;
     std::string method_name;
-    uint32_t args_size;  //也就是用户蹭的protobuf
+    uint32_t args_size;  //也就是用户层的protobuf
     if(rpcHeader.ParseFromString(rpc_header_str))
     {
         //反序列化成功
         service_name=rpcHeader.service_name();
         method_name=rpcHeader.method_name();
         args_size=rpcHeader.args_size();
-    }
+    } 
     else
     {
         //反序列化失败

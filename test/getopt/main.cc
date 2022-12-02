@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     printf("初始值：optind = %d，opterr = %d\n", optind, opterr);
 
-    while ((ch = getopt(argc, argv, "vha:b:c::")) != -1)
+    while ((ch = getopt(argc, argv, "i:")) != -1)
     {
         printf("ch = %c\n",(char)ch);
         std::cout << ch << std::endl;

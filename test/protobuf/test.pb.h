@@ -31,6 +31,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
+#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -1076,6 +1077,73 @@ class GetFrendlistResponse PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_test_2eproto;
 };
+// ===================================================================
+
+class UserServiceRpc_Stub;
+
+class UserServiceRpc : public ::PROTOBUF_NAMESPACE_ID::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline UserServiceRpc() {};
+ public:
+  virtual ~UserServiceRpc();
+
+  typedef UserServiceRpc_Stub Stub;
+
+  static const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* descriptor();
+
+  virtual void Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::LoginRequest* request,
+                       ::fixbug::LoginResponse* response,
+                       ::google::protobuf::Closure* done);
+  virtual void GetFriendlist(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::GetFriendlistRequest* request,
+                       ::fixbug::GetFrendlistResponse* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* method,
+                  ::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                  const ::PROTOBUF_NAMESPACE_ID::Message* request,
+                  ::PROTOBUF_NAMESPACE_ID::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::PROTOBUF_NAMESPACE_ID::Message& GetRequestPrototype(
+    const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* method) const;
+  const ::PROTOBUF_NAMESPACE_ID::Message& GetResponsePrototype(
+    const ::PROTOBUF_NAMESPACE_ID::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(UserServiceRpc);
+};
+
+class UserServiceRpc_Stub : public UserServiceRpc {
+ public:
+  UserServiceRpc_Stub(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel);
+  UserServiceRpc_Stub(::PROTOBUF_NAMESPACE_ID::RpcChannel* channel,
+                   ::PROTOBUF_NAMESPACE_ID::Service::ChannelOwnership ownership);
+  ~UserServiceRpc_Stub();
+
+  inline ::PROTOBUF_NAMESPACE_ID::RpcChannel* channel() { return channel_; }
+
+  // implements UserServiceRpc ------------------------------------------
+
+  void Login(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::LoginRequest* request,
+                       ::fixbug::LoginResponse* response,
+                       ::google::protobuf::Closure* done);
+  void GetFriendlist(::PROTOBUF_NAMESPACE_ID::RpcController* controller,
+                       const ::fixbug::GetFriendlistRequest* request,
+                       ::fixbug::GetFrendlistResponse* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::PROTOBUF_NAMESPACE_ID::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(UserServiceRpc_Stub);
+};
+
+
 // ===================================================================
 
 

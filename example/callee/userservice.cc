@@ -1,7 +1,8 @@
+#include "mprpcappclication.h"
+#include "rpcprovider.h"
+#include "user.pb.h"
 #include <iostream>
 #include <string>
-#include "user.pb.h"
-
 
 //使用在rpc服务发布端(rpc服务提供者)
 class UserService : public fixbug::UserServiceRpc
@@ -11,6 +12,7 @@ public:
     {
         std::cout << "doing local service :Login" << std::endl;
         std::cout << "name: " << name << "pwd: " << pwd << std::endl;
+        return true;
     }
 
     //重写基类UserServiceRpc的虚函数，下面这些方法都是框架直接调用的
@@ -41,15 +43,14 @@ public:
 int main(int argc,char**argv)
 {
     //框架初始化操作
-    //MprpcApplication::init(argc,,argv);
+    MprpcApplication::Init(argc, argv);
 
     //provider是一个rpc网络服务对象，把UserService对象发布到rpc节点上
-    //PpcProvider provider;
-    //provider.NotifyService(new UserService());
+    RpcProvider provider;
+    provider.NotifyService(new UserService());
 
     //启动一个rpc服务发布节点
-    //provider.Run();
-
+    provider.Run();
 
     return 0;
 }
