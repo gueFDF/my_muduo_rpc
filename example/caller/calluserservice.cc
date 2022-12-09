@@ -22,10 +22,10 @@ int main(int argc, char *argv[]) {
   //一次rpc调用完成
   if (response.result().errcode() == 0) //调用成功
   {
+    printf("登陆成功\n");
   } else { //调用失败
     //打印错误消息
-    std::cout<<response.result().errmsg()<<std::endl;
-    
+    std::cout << response.result().errmsg() << std::endl;
   }
   return 0;
 }
