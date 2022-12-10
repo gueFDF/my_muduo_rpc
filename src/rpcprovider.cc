@@ -9,6 +9,7 @@
 #include <google/protobuf/service.h>
 #include <google/protobuf/stubs/callback.h>
 #include <muduo/net/Endian.h>
+#include <netinet/in.h>
 
 //发布rpc方法的函数接口
 void RpcProvider::NotifyService(google::protobuf::Service *service) {
@@ -141,12 +142,18 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
 void RpcProvider::SendRpcresponse(const muduo::net::TcpConnectionPtr &conn,
                                   google::protobuf::Message *response) {
   std::string response_str;
+  uint32_t size = 0;
+  
   if (response->SerializeToString(&response_str)) {
     //序列成功
+    size = response_str.size();
+    std::cout<<"size: "<<size<<std::endl;
+    size=htonl(size);
+    response_str.insert(0,(char*)&size,sizeof(size) );
     conn->send(response_str);
   } else {
     //序列化失败
     std::cout << "序列化失败" << std::endl;
   }
   conn->shutdown(); //模拟短链接
-}
+} 
