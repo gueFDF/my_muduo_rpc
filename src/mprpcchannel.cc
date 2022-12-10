@@ -52,10 +52,11 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
   uint32_t be32;
   be32 = muduo::net::sockets::hostToNetwork32(header_size);
   std::string send_request;
-  send_request.append((char*)&be32, sizeof(be32));
- // std::copy((char *)&be32, (char *)&be32 + sizeof(be32), send_request.begin());
-  //std::copy()
-  
+  send_request.append((char *)&be32, sizeof(be32));
+  // std::copy((char *)&be32, (char *)&be32 + sizeof(be32),
+  // send_request.begin());
+  // std::copy()
+
   send_request += rpc_header_str;
   send_request += argvs;
   // tcp连接,创建套接字
@@ -92,8 +93,7 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
   //发送rpc请求
   std::cout << "send_request" << send_request << std::endl;
   int recv_size;
-  if (-1 == (recv_size = send(clientfd, send_request.c_str(),
-                              send_request.size(), 0))) {
+  if (-1 == (send(clientfd, send_request.c_str(), send_request.size(), 0))) {
     close(clientfd);
     perror("send error");
     return;
@@ -101,7 +101,16 @@ void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method,
 
   //接收rpc响应
   char recv_buf[1024];
-  if (-1 == (recv(clientfd, recv_buf, recv_size, 0))) {
+  uint32_t size;
+  //先接收长度，然后在接受消息内容
+  if (-1 == (recv(clientfd, (char *)&size, sizeof(uint32_t), 0))) {
+    close(clientfd);
+    perror("recv error");
+    return;
+  }
+  size = ntohl(size);
+  std::cout<<"size: "<<size<<std::endl;
+  if (-1 == (recv(clientfd, recv_buf, size, 0))) {
     close(clientfd);
     perror("recv error");
     return;
